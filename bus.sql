@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `testbus`
+-- Database: `transfinder`
 --
 
 -- --------------------------------------------------------
@@ -104,19 +104,19 @@ INSERT INTO `bus` (`busid`, `routeno`, `from`, `to`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `changeover`
+-- Table structure for table `buschange`
 --
 
-CREATE TABLE IF NOT EXISTS `changeover` (
+CREATE TABLE IF NOT EXISTS `buschange` (
   `changeid` int(11) NOT NULL,
   PRIMARY KEY (`changeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `changeover`
+-- Dumping data for table `buschange`
 --
 
-INSERT INTO `changeover` (`changeid`) VALUES
+INSERT INTO `buschange` (`changeid`) VALUES
 (2),
 (5),
 (7),
@@ -151,20 +151,20 @@ INSERT INTO `changeover` (`changeid`) VALUES
 -- Table structure for table `place`
 --
 
-CREATE TABLE IF NOT EXISTS `place` (
-  `pid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `bushalt` (
+  `hid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(36) NOT NULL,
   `area` varchar(10) NOT NULL,
   `loc` varchar(64) DEFAULT NULL,
   `desc` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`pid`)
+  PRIMARY KEY (`hid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=304 ;
 
 --
 -- Dumping data for table `place`
 --
 
-INSERT INTO `place` (`pid`, `name`, `area`, `loc`, `desc`) VALUES
+INSERT INTO `bushalt` (`hid`, `name`, `area`, `loc`, `desc`) VALUES
 (1, 'Pettah', 'Coast', '6.933211,79.855435', NULL),
 (2, 'Fort Railway Station', 'Coast', '6.934085,79.850221', NULL),
 (3, 'Lotus Road', 'Coast', '6.933978,79.846991', NULL),
@@ -323,17 +323,17 @@ INSERT INTO `place` (`pid`, `name`, `area`, `loc`, `desc`) VALUES
 
 CREATE TABLE IF NOT EXISTS `stop` (
   `bid` int(5) NOT NULL,
-  `pid` int(5) NOT NULL,
+  `hid` int(5) NOT NULL,
   `stopNo` int(5) NOT NULL,
-  PRIMARY KEY (`bid`,`pid`),
-  KEY `pid` (`pid`)
+  PRIMARY KEY (`bid`,`hid`),
+  KEY `hid` (`hid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `stop`
 --
 
-INSERT INTO `stop` (`bid`, `pid`, `stopNo`) VALUES
+INSERT INTO `stop` (`bid`, `hid`, `stopNo`) VALUES
 (1, 1, 1),
 (1, 2, 2),
 (1, 25, 3),
@@ -1608,14 +1608,14 @@ INSERT INTO `stop` (`bid`, `pid`, `stopNo`) VALUES
 --
 
 --
--- Constraints for table `changeover`
+-- Constraints for table `buschange`
 --
-ALTER TABLE `changeover`
-  ADD CONSTRAINT `changeover_ibfk_1` FOREIGN KEY (`changeid`) REFERENCES `place` (`pid`);
+ALTER TABLE `buschange`
+  ADD CONSTRAINT `buschange_ibfk_1` FOREIGN KEY (`changeid`) REFERENCES `bushalt` (`hid`);
 
 --
 -- Constraints for table `stop`
 --
 ALTER TABLE `stop`
   ADD CONSTRAINT `stop_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `bus` (`busid`),
-  ADD CONSTRAINT `stop_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `place` (`pid`);
+  ADD CONSTRAINT `stop_ibfk_2` FOREIGN KEY (`hid`) REFERENCES `bushalt` (`hid`);
