@@ -3,13 +3,13 @@
 /* Level class contains three methods.
 This class will be used to identify how
 many buses are need to travel to the destination. */
-include findbus.php;
+include 'findbus.php';
 
 class level{
 	
 	function __construct(){
 		$this->bus_obj = new findbus();
-
+	}
 	 // Level 1 - Go from location A to B using one bus
 
 	public function level1($from, $to)
@@ -22,10 +22,11 @@ class level{
 			$nstops = $bus[1];
 
 			//Output
-			echo '<div id="entry"><h2>Suggested Route - 1 bus, '.$nstops.' halts</h2>';
-			display($busid, $from, $to, $nstops);
-			echo '</div>';
-
+			//echo '<div id="entry"><h2>Suggested Route - 1 bus, '.$nstops.' halts</h2>';
+			//display($busid, $from, $to, $nstops);
+			//echo '</div>';
+			echo "From : ".$from." To :".$to."\n";
+			echo "Bus : ".$busid." number of halts :".$nstops;
 			return true;
 		}
 	}
@@ -44,10 +45,16 @@ class level{
 			$nstops2 = $bus[4];
 
 			//Output
-			echo '<div id="entry"><h2>Suggested Route - 2 buses, '.($nstops1 + $nstops2).' halts</h2>';
+			/*echo '<div id="entry"><h2>Suggested Route - 2 buses, '.($nstops1 + $nstops2).' halts</h2>';
 			display($busid1, $from, $change, $nstops1);
 			display($busid2, $change, $to, $nstops2);
-			echo '</div>';
+			echo '</div>';*/
+
+			echo "From : ".$from." To :".$change."\n";
+			echo "Bus : ".$busid1." number of halts :".$nstops1;
+
+			echo "From : ".$change." To :".$to."\n";
+			echo "Bus : ".$busid2." number of halts :".$nstops2;
 
 			return ($nstops1 + $nstops2);
 		}
@@ -88,9 +95,9 @@ class level{
 				{
 					echo '<div id="entry"><h2>Alternative Route - 3 buses, '.($nstops1 + $nstops2 + $nstops3).' halts</h2>';
 				}
-				display($busid1, $from, $change1, $nstops1);
-				display($busid2, $change1, $change2, $nstops2);
-				display($busid3, $change2, $to, $nstops3);
+				//display($busid1, $from, $change1, $nstops1);
+				//display($busid2, $change1, $change2, $nstops2);
+				//display($busid3, $change2, $to, $nstops3);
 				echo '</div>';
 
 				return true;
